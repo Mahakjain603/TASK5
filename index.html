@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gift Store</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+    }
+    header {
+  background: #ff6f61;
+  color: white;
+  padding: 15px;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  position: relative;       
+}
+header h1 {
+  margin: 0;
+  text-align: center;
+  flex: 1; 
+}
+nav {
+  position: absolute;
+  right: 20px; 
+}
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      overflow: hidden;
+      text-align: center;
+      padding: 15px;
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card img {
+      max-width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .card h3 {
+      margin: 10px 0 5px;
+    }
+    .card p {
+      color: #444;
+      margin: 5px 0;
+    }
+    .card button {
+      background: #ff6f61;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .card button:hover {
+      background: #e85b50;
+    }
+    #cartModal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+    #cartContent {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 400px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    #cartContent h2 {
+      margin-top: 0;
+    }
+    #cartItems p {
+      margin: 8px 0;
+    }
+    #closeCart {
+      background: #ff6f61;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+   <h1 style ="text-align: center;"><B>THE GIFTING CORNER</B></h1>
+    <nav>
+      <button onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
+    </nav>
+  </header>
+
+  <section class="products">
+    <div class="card">
+      <img src="teddy bear.webp" alt="Gift 1">
+      <h3>Teddy Bear</h3>
+      <p>₹500</p>
+      <button onclick="addToCart('Teddy Bear', 500)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="flower bouqet.webp" alt="Gift 2">
+      <h3>Flower Bouquet</h3>
+      <p>₹350</p>
+      <button onclick="addToCart('Flower Bouquet', 350)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="chocolate box.jpg" alt="Gift 3">
+      <h3>Chocolate Box</h3>
+      <p>₹450</p>
+      <button onclick="addToCart('Chocolate Box', 450)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="personalized mug.webp" alt="Gift 4">
+      <h3>Personalized Mug</h3>
+      <p>₹300</p>
+      <button onclick="addToCart('Personalized Mug', 300)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="perfume set.webp" alt="Gift 5">
+      <h3>Perfume Set</h3>
+      <p>₹700</p>
+      <button onclick="addToCart('Perfume Set', 700)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="greeting cards.jpg" alt="Gift 6">
+      <h3>Greeting Cards</h3>
+      <p>₹150</p>
+      <button onclick="addToCart('Greeting Cards', 150)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="decorative lamp.jpg" alt="Gift 7">
+      <h3>Decorative Lamp</h3>
+      <p>₹850</p>
+      <button onclick="addToCart('Decorative Lamp', 850)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="jewellery set.jpg" alt="Gift 8">
+      <h3>Jewelry Set</h3>
+      <p>₹1200</p>
+      <button onclick="addToCart('Jewelry Set', 1200)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="wrist watch.jpg" alt="Gift 9">
+      <h3>Wrist Watch</h3>
+      <p>₹950</p>
+      <button onclick="addToCart('Wrist Watch', 950)">Add to Cart</button>
+    </div>
+    <div class="card">
+      <img src="soft toy bunny.jpg" alt="Gift 10">
+      <h3>Soft Toy Bunny</h3>
+      <p>₹400</p>
+      <button onclick="addToCart('Soft Toy Bunny', 400)">Add to Cart</button>
+    </div>
+  <div class="card">
+    <img src="photoframe.jpg" alt="Gift 11">
+    <h3>Photo Frame</h3>
+    <p>₹600</p>
+    <button onclick="addToCart('Photo Frame', 600)">Add to Cart</button>
+  </div>
+  <div class="card">
+    <img src="handmade candle.avif" alt="Gift 12">
+    <h3>Handmade Candle</h3>
+    <p>₹250</p>
+    <button onclick="addToCart('Handmade Candle', 250)">Add to Cart</button>
+  </div>
+
+
+  </section>
+  <div id="cartModal">
+    <div id="cartContent">
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <p><strong>Total: ₹<span id="cartTotal">0</span></strong></p>
+      <button id="closeCart" onclick="closeCart()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      total += price;
+      document.getElementById('cartCount').innerText = cart.length;
+      alert(item + " added to cart!");
+    }
+
+    function openCart() {
+      const cartItemsDiv = document.getElementById('cartItems');
+      cartItemsDiv.innerHTML = "";
+      cart.forEach(c => {
+        let p = document.createElement('p');
+        p.textContent = c.item + " - ₹" + c.price;
+        cartItemsDiv.appendChild(p);
+      });
+      document.getElementById('cartTotal').innerText = total;
+      document.getElementById('cartModal').style.display = "flex";
+    }
+
+    function closeCart() {
+      document.getElementById('cartModal').style.display = "none";
+    }
+  </script>
+</body>
+</html>
